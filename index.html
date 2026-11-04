@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ML + DL Refresh Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--bg:#000;--panel:#0a1226;--line:#262626;--text:#f2f2f2;--dim:#8a8a8a;--y:#fff;--g:#3d6bff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 80px}
+header h1{font-size:clamp(2.4rem,9vw,4.2rem);line-height:.95;margin:0;font-weight:800;letter-spacing:-.03em;color:var(--y)}
+header p{color:var(--dim);margin:10px 0 0;max-width:46ch}
+.meter{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:14px 0 12px;margin-top:22px;border-bottom:1px solid var(--line)}
+.meter-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.pct{font-size:2.6rem;font-weight:800;color:var(--g);letter-spacing:-.04em;line-height:1}
+.count{color:var(--dim);font-size:.95rem}
+.segs{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
+.seg{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.seg i{display:block;height:100%;width:0;background:var(--g);transition:width .35s}
+.sec{margin-top:44px}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.sec-h h2{margin:0;font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.sec-h .c{font-size:.95rem;color:var(--y);font-weight:600;white-space:nowrap}
+.sec.done .sec-h .c{color:var(--g)}
+.goal{color:var(--dim);margin:6px 0 0;max-width:52ch}
+.rail{position:relative;margin-top:16px;padding-left:22px}
+.rail::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--line);border-radius:2px}
+.rail::after{content:"";position:absolute;left:0;top:4px;width:3px;height:calc((100% - 8px) * var(--p,0));background:var(--g);border-radius:2px;transition:height .35s}
+.sub{margin:18px 0 6px;color:var(--y);font-size:.95rem;font-weight:600}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;transition:border-color .2s}
+li:hover{border-color:#4a4a4a}
+li.on{border-color:#1c2f66}
+label{display:flex;align-items:flex-start;gap:12px;flex:1;min-width:0;cursor:pointer}
+input{position:absolute;opacity:0;pointer-events:none}
+.box{flex:none;width:26px;height:26px;border:2px solid var(--y);border-radius:8px;display:grid;place-items:center;margin-top:1px;transition:background .15s,border-color .15s,transform .15s}
+.box svg{width:16px;height:16px;stroke:#fff;stroke-width:3.5;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.4);transition:.15s}
+input:checked+.box{background:var(--g);border-color:var(--g);transform:scale(1.06)}
+input:checked+.box svg{opacity:1;transform:none}
+input:focus-visible+.box{outline:3px solid #fff;outline-offset:2px}
+.t{display:block;font-weight:600}
+.n{display:block;color:var(--dim);font-size:.9rem}
+li.on .t{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--g)}
+a.go{flex:none;color:#000;background:var(--y);font-weight:600;font-size:.85rem;text-decoration:none;padding:7px 12px;border-radius:999px}
+a.go:hover,button.go:hover{background:#b5b5b5}
+a.go:focus-visible{outline:3px solid #fff;outline-offset:2px}
+button.go{flex:none;border:0;cursor:pointer;font:inherit;font-size:.85rem;font-weight:600;color:#000;background:#fff;padding:7px 12px;border-radius:999px}button.go:focus-visible{outline:3px solid #fff;outline-offset:2px}li.syn{flex-wrap:wrap}.tasks{flex-basis:100%;margin:4px 0 2px;padding-left:56px;color:var(--dim);font-size:.9rem}.tasks li{display:list-item;background:none;border:0;border-radius:0;padding:2px 0;margin:0}
+.routine{margin-top:48px;border:1px solid var(--y);border-radius:16px;padding:18px}
+.routine h3{margin:0 0 8px;color:var(--y);font-size:1.2rem}
+.routine ol{margin:0;padding-left:20px;color:var(--text)}
+.routine li{display:list-item;background:none;border:0;padding:3px 0;margin:0}
+button.reset{margin-top:30px;background:none;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:inherit;cursor:pointer}
+button.reset:hover{color:var(--text);border-color:var(--dim)}
+@media (max-width:480px){li{flex-wrap:wrap}a.go,button.go{margin-left:38px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Relearn ML and deep learning</h1>
+<p>Work from the top down. Open a link or download a dataset, do the work, tick the box.</p>
+</header>
+<div class="meter">
+<div class="meter-row"><div class="pct" id="pct">0%</div><div class="count" id="count"></div></div>
+<div class="segs" id="segs"></div>
+</div>
+<main id="app"></main>
+<div class="routine">
+<h3>For every dataset</h3>
+<ol><li>Read the theory for the topic first.</li><li>Build a baseline model.</li><li>Improve it.</li><li>Write down what moved the score, and why.</li></ol>
+</div>
+<button class="reset" id="reset" type="button">Reset all ticks</button>
+</div>
+<script>
+var K="ml-roadmap-ticks-v1";
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function mk(seed){var r=rng(seed);return{r:r,n:function(){return Math.sqrt(-2*Math.log(1-r()))*Math.cos(6.283185*r())},p:function(a){return a[Math.floor(r()*a.length)]},u:function(a,b){return a+(b-a)*r()}}}
+function f(x,d){return x.toFixed(d===undefined?2:d)}
+function cl(x,a,b){return Math.max(a,Math.min(b,x))}
+function csv(h,R){return h.join(",")+"\n"+R.map(function(r){return r.join(",")}).join("\n")+"\n"}
+function shp(c,m,z){var g=[],dx=Math.round(m.u(-1,1)),dy=Math.round(m.u(-1,1));for(var i=0;i<8;i++){g[i]=[];for(var j=0;j<8;j++){var x=j-dx-3.5,y=i-dy-3.5,d=Math.sqrt(x*x+y*y),q=Math.max(Math.abs(x),Math.abs(y)),v=0;
+if(c==0)v=d>1.6&&d<2.8?1:0;else if(c==1)v=q>2&&q<3.1?1:0;else if(c==2)v=(Math.abs(x)<.8||Math.abs(y)<.8)&&d<3.6?1:0;else v=Math.abs(x-y)<.8&&d<4.2?1:0;
+g[i].push(cl(v*z.b+z.o+z.s*m.n(),0,1))}}return g}
+function shapes(n,seed,shift){var m=mk(seed),R=[],H=[];for(var k=0;k<64;k++)H.push("p"+k);H.push("label");if(shift)H.push("split");
+for(var i=0;i<n;i++){var te=shift&&i>=n*.75,c=i%4,g=shp(c,m,te?{b:.8,o:.1,s:.3}:{b:1,o:0,s:.15}),row=[].concat.apply([],g).map(function(v){return f(v)}),y=c;if(shift&&!te&&m.r()<.15)y=(c+1+Math.floor(m.r()*3))%4;row.push(y);if(shift)row.push(te?"test":"train");R.push(row)}return csv(H,R)}
+var G={
+study:function(){var m=mk(1),R=[];for(var i=0;i<200;i++){var h=m.u(0,10),s=m.u(4,9),a=m.u(50,100);R.push([f(h),f(s),f(a,0),f(cl(35+5*h+2*(s-6)+.15*(a-70)+5*m.n(),0,100),1)])}return csv(["hours_studied","sleep_hours","attendance_pct","exam_score"],R)},
+moons:function(){var m=mk(2),R=[];for(var i=0;i<600;i++){var c=i%2,t=Math.PI*m.r(),x,y;if(c){x=1-Math.cos(t);y=.5-Math.sin(t)}else{x=Math.cos(t);y=Math.sin(t)}R.push([f(x+.15*m.n(),3),f(y+.15*m.n(),3),c])}return csv(["x1","x2","label"],R)},
+churn:function(){var m=mk(3),R=[],C=["monthly","yearly","two_year"];for(var i=0;i<1000;i++){var t=Math.round(m.u(1,72)),fee=m.u(20,110),k=Math.floor(m.u(0,8)),c=m.p(C),z=-1.2-.04*t+.012*fee+.35*k+(c=="monthly"?1.2:c=="yearly"?-.2:-1)+.5*m.n(),y=m.r()<1/(1+Math.exp(-z))?1:0;R.push([m.r()<.05?"":t,f(fee),k,c,m.r()<.05?"":Math.round(m.u(20,120))*1000,y])}return csv(["tenure_months","monthly_fee","support_calls","contract","income","churned"],R)},
+house:function(){var m=mk(4),R=[],nb={A:1,B:1.25,C:.85,D:1.6};for(var i=0;i<800;i++){var s=Math.round(m.u(500,3500)),b=cl(Math.round(s/900+m.n()*.6),1,6),a=Math.round(m.u(0,60)),n=m.p(["A","B","C","D"]),g=m.p(["yes","no"]),d=m.u(1,25),p=Math.max(25000,Math.round((40+.09*s+8*b-.6*a-1.5*d+(g=="yes"?15:0))*nb[n]*(1+.08*m.n())*1000));if(m.r()<.01)p*=4;R.push([s,b,m.r()<.06?"":a,n,m.r()<.04?"":g,f(d,1),p])}return csv(["sqft","bedrooms","age_years","neighborhood","has_garage","distance_km","price"],R)},
+shapes8:function(){return shapes(800,5,0)},
+reviews:function(){var m=mk(6),R=[],P=["great","excellent","fantastic","wonderful","smooth","lovely"],N=["terrible","awful","broken","disappointing","slow","useless"],T=["the app","this phone","the service","my order","the delivery","this course"];for(var i=0;i<1000;i++){var y=i%2,s=m.p(T)+" was "+m.p(y?P:N)+(m.r()<.3?" although "+m.p(y?N:P):"");if(m.r()<.08)y=1-y;R.push([s,y])}return csv(["text","label"],R)},
+sensor:function(){var m=mk(7),R=[];for(var t=0;t<1500;t++){var a=m.r()<.01?1:0,v=20+5*Math.sin(6.283*t/24)+.003*t+.6*m.n()+(a?(m.r()<.5?1:-1)*m.u(4,8):0);R.push([t,f(v,3),a])}return csv(["hour","temperature","is_anomaly"],R)},
+signal:function(){var m=mk(8),R=[],H=[];for(var k=0;k<40;k++)H.push("t"+k);H.push("label");for(var i=0;i<600;i++){var c=i%3,ph=m.u(0,6.28),fr=m.u(.8,1.4),w=0,row=[];for(var k=0;k<40;k++){var v;if(c==0)v=Math.sin(fr*k*.4+ph);else if(c==1)v=((k*fr*.1+ph/6.28)%1)*2-1;else{w+=.35*m.n();v=cl(w,-1.5,1.5)}row.push(f(v+.15*m.n(),3))}row.push(c);R.push(row)}return csv(H,R)},
+fraud:function(){var m=mk(9),R=[];for(var i=0;i<5000;i++){var z=m.r()<.015,amt=Math.exp(m.n()*.8+(z?4.6:3.6)),hr=z&&m.r()<.6?Math.floor(m.u(0,5)):Math.floor(z?m.u(0,24):m.u(6,23)),n=Math.floor(m.u(0,5)+(z?m.u(2,8):0)),dist=Math.abs(m.n())*(z?60:12),fo=m.r()<(z?.55:.06)?1:0;R.push([f(amt),hr,n,f(dist,1),fo,z?1:0])}return csv(["amount","hour","tx_last_24h","distance_from_home_km","is_foreign","is_fraud"],R)},
+shift:function(){return shapes(1200,10,1)}};
+var SYN=[
+{t:"Study hours and exam scores",lv:"Simple",f:"study_scores",g:G.study,n:"ML regression. 200 rows. Predict the exam score.",tk:["Plot hours studied against score.","Fit linear regression on an 80/20 split. Report R² and RMSE.","Add sleep and attendance. Does the error drop?","Plot the residuals. Do they look random?"]},
+{t:"Two moons",lv:"Simple",f:"two_moons",g:G.moons,n:"ML to DL classification. 600 rows, two features.",tk:["Plot both classes.","Train logistic regression and note its accuracy ceiling.","Build a small MLP (2-16-16-1) and compare.","Plot decision boundaries with 2, 8 and 64 hidden units."]},
+{t:"Customer churn",lv:"Medium",f:"churn",g:G.churn,n:"ML classification. 1,000 rows with blanks in tenure and income.",tk:["Impute the missing values and one-hot encode contract.","Compare logistic regression with a random forest.","Report precision, recall, F1 and the confusion matrix.","Name the top 3 features that drive churn."]},
+{t:"Messy house prices",lv:"Medium",f:"house_prices",g:G.house,n:"ML regression. 800 rows with outliers and blanks.",tk:["Run EDA: spot the outlier prices and the blank columns.","Predict log(price) with linear regression, then gradient boosting.","Use 5-fold cross-validation for both.","Plot feature importance and explain the top two."]},
+{t:"Tiny shapes",lv:"Medium",f:"tiny_shapes",g:G.shapes8,n:"DL vision. 800 images of 8x8 pixels (p0 to p63). Classes: ring, square, cross, diagonal.",tk:["Reshape rows to 8x8 and display a few.","Train an MLP baseline in PyTorch.","Train a small CNN (2 conv layers). Compare parameters and accuracy.","Shift the test images by one pixel. Which model holds up?"]},
+{t:"Mini reviews",lv:"Medium",f:"mini_reviews",g:G.reviews,n:"DL text. 1,000 sentences with 8% flipped labels.",tk:["Baseline: TF-IDF with logistic regression.","Train an embedding plus GRU model in PyTorch.","Fine-tune a small transformer such as DistilBERT.","Inspect the errors. Estimate the label noise rate."]},
+{t:"Sensor readings",lv:"Medium",f:"sensor_readings",g:G.sensor,n:"ML and DL time series. 1,500 hourly rows with 1% anomalies.",tk:["Split by time, never shuffle.","Baseline: repeat the value from 24 hours earlier.","Forecast the next 24 hours with lag features, then an LSTM or 1D-CNN.","Flag anomalies from residual z-scores. Score F1 against is_anomaly."]},
+{t:"Signal types",lv:"Hard",f:"signal_types",g:G.signal,n:"DL sequences. 600 series of 40 steps. Classes: sine, sawtooth, random walk.",tk:["Plot three examples per class.","Train an MLP, a 1D-CNN and a GRU on the same split.","Compare accuracy and training time.","Add noise to the test set and see which model breaks first."]},
+{t:"Rare fraud",lv:"Hard",f:"rare_fraud",g:G.fraud,n:"ML and DL imbalance. 5,000 rows, about 1.5% fraud.",tk:["Show that always predicting no fraud scores about 98.5% accuracy.","Evaluate with PR-AUC instead of accuracy.","Try class weights, then oversampling. Compare random forest and MLP.","Tune the threshold to reach 80% recall and report the precision cost."]},
+{t:"Noisy shapes with shift",lv:"Hard",f:"noisy_shapes_shift",g:G.shift,n:"DL robustness. 1,200 images. Train labels are 15% wrong, test images are brighter and noisier (split column).",tk:["Train a CNN on the train split and check the test gap.","Add augmentation: shifts, brightness and noise.","Try label smoothing or a noise-robust loss.","Find the mislabeled training images with high-loss samples."]}
+];
+var D=[
+{n:"Level 1: Simple",g:"Classical ML basics. Learn the full workflow: cleaning, train/test split, metrics, overfitting.",
+ d:[["Iris","Classification","https://www.kaggle.com/datasets/uciml/iris"],
+    ["Titanic","Missing data, feature engineering","https://www.kaggle.com/c/titanic"],
+    ["House Prices","Regression, many features","https://www.kaggle.com/c/house-prices-advanced-regression-techniques"]],
+ p:["Logistic and linear regression","Decision trees and random forests","Cross-validation","Confusion matrix","Precision and recall trade-off"]},
+{n:"Level 2: Easy to medium",g:"First neural nets. Understand backprop, loss curves and regularization.",
+ d:[["Digit Recognizer (MNIST)","Handwritten digits","https://www.kaggle.com/c/digit-recognizer"],
+    ["Fashion-MNIST","Clothing images","https://www.kaggle.com/datasets/zalando-research/fashionmnist"],
+    ["Spaceship Titanic","Tabular, a step up from Titanic","https://www.kaggle.com/c/spaceship-titanic"]],
+ p:["Build an MLP from scratch in NumPy","Rebuild the MLP in PyTorch","Train a small CNN and compare"]},
+{n:"Level 3: Medium",g:"CNNs, NLP and time series.",
+ d:[["CIFAR-10","Small colour images","https://www.kaggle.com/c/cifar-10"],
+    ["Cats vs Dogs","Transfer learning","https://www.kaggle.com/c/dogs-vs-cats"],
+    ["Chest X-Ray Pneumonia","Imbalanced, real-world vision","https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia"],
+    ["Disaster Tweets","Text classification","https://www.kaggle.com/c/nlp-getting-started"],
+    ["IMDB Reviews","Sentiment with RNN or LSTM","https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews"],
+    ["Store Sales","Forecasting","https://www.kaggle.com/c/store-sales-time-series-forecasting"]],
+ p:["Data augmentation","Pretrained ResNet or EfficientNet","LSTM versus a fine-tuned transformer","Handle class imbalance"]},
+{n:"Level 4: Hard",g:"Real-world messiness.",
+ d:[["Cassava Leaf Disease","Noisy labels, African agriculture","https://www.kaggle.com/c/cassava-leaf-disease-classification"],
+    ["COCO","Detection and segmentation, fits your YOLO work","https://cocodataset.org"],
+    ["SQuAD","Question answering with transformers","https://rajpurkar.github.io/SQuAD-explorer/"],
+    ["Hugging Face datasets","Thousands for NLP, vision and audio","https://huggingface.co/datasets"]],
+ p:["Fine-tune YOLO or DETR","Tune hyperparameters","Run error analysis","Try ensembling"]},
+{n:"Synthetic",g:"Mock datasets generated in the page with fixed seeds, so the files are always identical. Ordered simple to hard, across ML and deep learning.",syn:1,d:SYN,p:[]},
+{n:"Theory",g:"Read or watch these alongside the levels.",
+ d:[["StatQuest","Short, clear core ML concepts","https://www.youtube.com/@statquest"],
+    ["3Blue1Brown: Neural Networks","Intuition for backprop and gradient descent","https://www.youtube.com/@3blue1brown"],
+    ["Machine Learning Specialization","Andrew Ng, structured foundations","https://www.coursera.org/specializations/machine-learning-introduction"],
+    ["Kaggle Learn","Short, free, hands-on courses","https://www.kaggle.com/learn"],
+    ["Dive into Deep Learning","Free book with code","https://d2l.ai"],
+    ["fast.ai","Top-down practical deep learning","https://course.fast.ai"],
+    ["Karpathy: Zero to Hero","Build neural nets and GPT from scratch","https://karpathy.ai/zero-to-hero.html"],
+    ["CS231n","CNNs in depth","http://cs231n.stanford.edu"],
+    ["Hands-On Machine Learning","Book by Aurélien Géron",""]],p:[]},
+{n:"Tools",g:"Set these up once.",
+ d:[["Python, NumPy, pandas, Matplotlib","Core stack",""],
+    ["scikit-learn and PyTorch","Classical ML and deep learning",""],
+    ["Kaggle Notebooks","Free GPU","https://www.kaggle.com/code"],
+    ["Google Colab","Free GPU alternative","https://colab.research.google.com"]],p:[]}
+];
+var S={};try{S=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(e){S={}}
+var R={doc:null,t:0};
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}if(R.doc){clearTimeout(R.t);R.t=setTimeout(function(){R.doc.set({ticks:S}).catch(function(){})},400)}}
+var CK='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function row(id,t,n,u){
+ return '<li data-id="'+id+'"><label><input type="checkbox" data-id="'+id+'"><span class="box">'+CK+'</span><span><span class="t">'+esc(t)+'</span>'+(n?'<span class="n">'+esc(n)+'</span>':'')+'</span></label>'+
+ (u?'<a class="go" href="'+u+'" target="_blank" rel="noopener">Open</a>':'')+'</li>';
+}
+function synRow(id,x,j){return '<li class="syn" data-id="'+id+'"><label><input type="checkbox" data-id="'+id+'"><span class="box">'+CK+'</span><span><span class="t">'+esc(x.t)+'</span><span class="n">'+esc(x.n)+'</span></span></label><button class="go" type="button" data-gen="'+j+'">Download CSV</button><ol class="tasks">'+x.tk.map(function(t){return '<li>'+esc(t)+'</li>'}).join("")+'</ol></li>'}
+async function dl(b){var x=SYN[b.dataset.gen],name=x.f+".csv",txt=x.g(),old="Download CSV";try{var d=window.claude&&await claude.use("downloads");if(d){await d.save({filename:name,data:txt})}else{var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/csv"}));a.download=name;a.click()}b.textContent="Saved"}catch(e){b.textContent=(e&&e.code=="declined")?old:"Try again"}setTimeout(function(){b.textContent=old},2500)}
+var h="",segs="";
+D.forEach(function(s,i){
+ h+='<section class="sec" id="s'+i+'"><div class="sec-h"><h2>'+s.n+'</h2><span class="c" id="c'+i+'"></span></div><p class="goal">'+s.g+'</p><div class="rail" id="r'+i+'">';
+ if(s.p.length||i<4)h+='<div class="sub">Datasets</div>';
+ if(s.syn){var lv="";h+=s.d.map(function(x,j){var q="";if(x.lv!=lv){lv=x.lv;q='<div class="sub">'+lv+'</div>'}return q+synRow("s"+i+"d"+j,x,j)}).join("")}else h+='<ul>'+s.d.map(function(x,j){return row("s"+i+"d"+j,x[0],x[1],x[2])}).join("")+'</ul>';
+ if(s.p.length)h+='<div class="sub">Practice</div><ul>'+s.p.map(function(x,j){return row("s"+i+"p"+j,x,"","")}).join("")+'</ul>';
+ h+='</div></section>';
+ segs+='<div class="seg"><i id="g'+i+'"></i></div>';
+});
+document.getElementById("app").innerHTML=h;
+document.getElementById("segs").innerHTML=segs;
+function ids(i){var s=D[i],a=[];s.d.forEach(function(_,j){a.push("s"+i+"d"+j)});s.p.forEach(function(_,j){a.push("s"+i+"p"+j)});return a}
+function render(){
+ var tot=0,done=0;
+ D.forEach(function(s,i){
+  var a=ids(i),c=a.filter(function(x){return S[x]}).length;tot+=a.length;done+=c;
+  var f=c/a.length;
+  document.getElementById("c"+i).textContent=c+" of "+a.length;
+  document.getElementById("g"+i).style.width=(f*100)+"%";
+  document.getElementById("r"+i).style.setProperty("--p",f);
+  document.getElementById("s"+i).classList.toggle("done",c===a.length);
+ });
+ document.querySelectorAll("input[data-id]").forEach(function(el){
+  var on=!!S[el.dataset.id];el.checked=on;el.closest("li").classList.toggle("on",on);
+ });
+ document.getElementById("pct").textContent=Math.round(done/tot*100)+"%";
+ document.getElementById("count").textContent=done+" of "+tot+" done";
+}
+document.getElementById("app").addEventListener("change",function(e){
+ var id=e.target.dataset.id;if(!id)return;
+ if(e.target.checked)S[id]=1;else delete S[id];
+ save();render();
+});
+document.getElementById("app").addEventListener("click",function(e){var b=e.target.closest("button[data-gen]");if(b)dl(b)});
+document.getElementById("reset").addEventListener("click",function(){
+ if(confirm("Clear every tick?")){S={};save();render()}
+});
+render();
+(async function(){try{var c=window.claude;if(!c)return;var db=await c.use("db"),u=await c.use("user");if(!db||!u)return;var id=await u.id();if(!id)return;var d=db.doc("data/users/"+id+"/ticks"),sn=await d.get(),r=sn.exists&&sn.data()&&sn.data().ticks;if(r&&typeof r=="object"){S=r;try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}render()}else{d.set({ticks:S}).catch(function(){})}R.doc=d}catch(e){}})();
+</script>
+</body>
+</html>
